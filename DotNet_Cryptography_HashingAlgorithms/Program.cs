@@ -15,13 +15,20 @@ namespace DotNet_Cryptography_HashingAlgorithms
             Console.WriteLine($"String 1 Plain Text: {plainTextOne}");
             Console.WriteLine($"String 2 Plain Text: {plainTextTwo}");
 
+            // Algorithms
             RunSHA512();
             RunMD5CryptoServiceProvider();
             RunHMACRIPEMD160();
             RunMACTripleDES();
 
+            // Password
+            RunPasswordEncryption();
+
+            // Wait and display
             Console.ReadKey();
         }
+
+        #region Algorithms
 
         private static void RunSHA512()
         {
@@ -109,10 +116,69 @@ namespace DotNet_Cryptography_HashingAlgorithms
             SHA1Managed
             SHA256Managed
             SHA384Managed
-            HMACMD5
             HMACSHA256
             HMACMD5
             HMACSHA512
         */
+        #endregion
+
+        #region Password
+
+        private static void RunPasswordEncryption()
+        {
+            PrintTitle("Password Hashing");
+
+            string salt = GenerateSalt(8);
+            string password = "secret";
+            string constant = "xl1k5ss5NTE=";
+            string hashedPassword = ComputeHash(password, salt, constant);
+
+            Console.WriteLine($"Salt: {salt}");
+            Console.WriteLine($"Entropy: {constant}");
+            Console.WriteLine($"Plain Password: {password}");
+            Console.WriteLine($"Hashed Password: {hashedPassword}");
+        }
+        /// <summary>
+        /// Creates a salt using a strong random number generator (RNGCryptoServiceProvider)
+        /// </summary>
+        /// <param name="byteCount"></param>
+        /// <returns></returns>
+        private static string GenerateSalt(int byteCount)
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] salt = new byte[byteCount];
+            rng.GetBytes(salt);
+            return Convert.ToBase64String(salt);
+        }
+
+        /// <summary>
+        /// Creates a hash using a salt value
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <returns></returns>
+        public static string ComputeHash(string password, string salt)
+        {
+            byte[] hashBytes = Encoding.UTF8.GetBytes(password + salt);
+            SHA512Managed hashAlg = new SHA512Managed();
+            byte[] hash = hashAlg.ComputeHash(hashBytes);
+            return Convert.ToBase64String(hash);
+        }
+
+        /// <summary>
+        /// Creates a hash using a salt and an entrophy value
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <param name="entropy"></param>
+        /// <returns></returns>
+        public static string ComputeHash(string password, string salt, string entropy)
+        {
+            byte[] hashBytes = Encoding.UTF8.GetBytes(password + salt + entropy);
+            SHA512Managed hashAlg = new SHA512Managed();
+            byte[] hash = hashAlg.ComputeHash(hashBytes);
+            return Convert.ToBase64String(hash);
+        }
+        #endregion
     }
 }

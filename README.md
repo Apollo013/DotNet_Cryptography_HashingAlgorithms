@@ -34,6 +34,7 @@ Developed with Visual Studio 2015 Community
 |HMACSHA256|
 |HMACSHA512|
 
+---
 
 ###Resources
 |Title|Author|Website|

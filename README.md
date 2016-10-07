@@ -3,7 +3,9 @@ A small console app demonstrating various hashing algorithms
 
 ---
 
-Developed with Visual Studio 2015 Community
+Developed with Visual Studio 2015 Community.
+
+Includes an example that encrypts a password using a salt and an entrophy value.
 
 ---
 
@@ -21,6 +23,13 @@ Developed with Visual Studio 2015 Community
 |MD5CryptoServiceProvider|
 |HMACRIPEMD160|
 |MACTripleDES|
+
+---
+
+### Strong Number Generators
+|Geberator|
+|---------|
+|RNGCryptoServiceProvider|
 
 ---
 

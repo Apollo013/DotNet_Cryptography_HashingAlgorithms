@@ -19,8 +19,10 @@ Includes an example that encrypts a password using a salt and an entrophy value.
 ### Algorithms Demonstrated
 |Algorithm|
 |---------|
+|SHA256Managed|
 |SHA512Managed|
 |MD5CryptoServiceProvider|
+|SHA1CryptoServiceProvider|
 |HMACRIPEMD160|
 |MACTripleDES|
 
@@ -37,7 +39,6 @@ Includes an example that encrypts a password using a salt and an entrophy value.
 |Algorithm|
 |---------|
 |SHA1Managed|
-|SHA256Managed|
 |SHA384Managed|
 |HMACMD5|
 |HMACSHA256|

@@ -24,6 +24,16 @@ namespace DotNet_Cryptography_HashingAlgorithms
             // Password
             RunPasswordEncryption();
 
+            // Generic Algorithm Injection
+            PrintTitle("Generic Hasher");
+            string originalMessage = "Hello world";
+            Console.WriteLine($"Original Message: {originalMessage,25}");
+
+            Hash(originalMessage, MD5.Create());
+            Hash(originalMessage, SHA1.Create());
+            Hash(originalMessage, SHA256.Create());
+            Hash(originalMessage, SHA512.Create());
+
             // Wait and display
             Console.ReadKey();
         }
@@ -103,13 +113,6 @@ namespace DotNet_Cryptography_HashingAlgorithms
             Console.WriteLine($"String 2 Hash: {hexOfValueTwo}");
         }
 
-        private static void PrintTitle(string title)
-        {
-            Console.WriteLine();
-            Console.WriteLine(divider);
-            Console.WriteLine(title);
-            Console.WriteLine(divider);
-        }
 
         /*
          * Other Hashing Algorithms
@@ -120,6 +123,16 @@ namespace DotNet_Cryptography_HashingAlgorithms
             HMACMD5
             HMACSHA512
         */
+        #endregion
+
+        #region Generic Algorithm
+        private static void Hash(string plainText, HashAlgorithm hasher)
+        {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] encryptedBytes = hasher.ComputeHash(plainBytes);
+            string digest = Convert.ToBase64String(encryptedBytes);
+            Console.WriteLine($"{hasher.GetType().Name,-30}: {digest}");
+        }
         #endregion
 
         #region Password
@@ -178,6 +191,17 @@ namespace DotNet_Cryptography_HashingAlgorithms
             SHA512Managed hashAlg = new SHA512Managed();
             byte[] hash = hashAlg.ComputeHash(hashBytes);
             return Convert.ToBase64String(hash);
+        }
+        #endregion
+
+        #region Misc
+
+        private static void PrintTitle(string title)
+        {
+            Console.WriteLine();
+            Console.WriteLine(divider);
+            Console.WriteLine(title);
+            Console.WriteLine(divider);
         }
         #endregion
     }

@@ -1,11 +1,9 @@
 # DotNet_Cryptography_HashingAlgorithms
-A small console app demonstrating various hashing algorithms
+A small console app demonstrating various hashing algorithms. (password encryption example included)
 
 ---
 
 Developed with Visual Studio 2015 Community.
-
-Includes an example that encrypts a password using a salt and an entrophy value.
 
 ---
 
